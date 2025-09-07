@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/metro/metro",
     "pages/index/index",
-    "pages/logs/logs",
-    "pages/metro/metro"
+    "pages/logs/logs"
   ],
   "window": {
     "navigationBarTextStyle": "black",
