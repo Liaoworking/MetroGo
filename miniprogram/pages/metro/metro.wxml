@@ -31,7 +31,6 @@
           bindtap="onSelectLine"
           style="border-left-color: {{item.color}}"
         >
-          <text class="line-number" style="background-color: {{item.color}}; color: white;">{{item.name}}</text>
           <text class="line-name">{{item.name}}</text>
         </view>
       </scroll-view>
@@ -53,9 +52,9 @@
             <text wx:for="{{item.transfers}}" wx:key="index" wx:for-item="transfer">{{transfer}}号线</text>
           </view>
         </view>
-        <view class="empty-tip" wx:if="!stationsByLine[selectedLine]">
+        <!-- <view class="empty-tip" wx:if="!stationsByLine[selectedLine]">
           <text>暂无该线路站点信息</text>
-        </view>
+        </view> -->
       </scroll-view>
     </view>
     <view class="station-list-empty" wx:else>
