@@ -53,26 +53,26 @@ Component({
   data: {
     // 上海地铁线路数据
     lines: [
-      { id: '1', name: '1号线', color: '#FF4D4F' },
-      { id: '2', name: '2号线', color: '#73D13D' },
-      { id: '3', name: '3号线', color: '#722ED1' },
-      { id: '4', name: '4号线', color: '#1890FF' },
-      { id: '5', name: '5号线', color: '#FAAD14' },
-      { id: '6', name: '6号线', color: '#13C2C2' },
-      { id: '7', name: '7号线', color: '#52C41A' },
-      { id: '8', name: '8号线', color: '#FA8C16' },
-      { id: '9', name: '9号线', color: '#722ED1' },
-      { id: '10', name: '10号线', color: '#D897EB' },
-      { id: '11', name: '11号线', color: '#EB2F96' },
-      { id: '12', name: '12号线', color: '#0FC6C2' },
-      { id: '13', name: '13号线', color: '#A0D911' },
-      { id: '14', name: '14号线', color: '#F5222D' },
-      { id: '15', name: '15号线', color: '#F7BA1E' },
-      { id: '16', name: '16号线', color: '#2F54EB' },
-      { id: '17', name: '17号线', color: '#52C41A' },
-      { id: '18', name: '18号线', color: '#722ED1' },
-      { id: '浦江线', name: '浦江线', color: '#86909C' },
-      { id: '磁悬浮', name: '磁悬浮', color: '#E8684A' }
+      { id: '1', name: '1号线', color: '#FF4D4F' }, // 红色
+      { id: '2', name: '2号线', color: '#73D13D' }, // 绿色
+      { id: '3', name: '3号线', color: '#FFDE59' }, // 黄色
+      { id: '4', name: '4号线', color: '#722ED1' }, // 紫色
+      { id: '5', name: '5号线', color: '#FAAD14' }, // 紫红色
+      { id: '6', name: '6号线', color: '#13C2C2' }, // 品红色
+      { id: '7', name: '7号线', color: '#FF8C00' }, // 橙色
+      { id: '8', name: '8号线', color: '#007AFF' }, // 蓝色
+      { id: '9', name: '9号线', color: '#D4AF37' }, // 金色
+      { id: '10', name: '10号线', color: '#D897EB' }, // 淡紫色
+      { id: '11', name: '11号线', color: '#A52A2A' }, // 棕色
+      { id: '12', name: '12号线', color: '#0FC6C2' }, // 深绿色
+      { id: '13', name: '13号线', color: '#FF9999' }, // 粉色
+      { id: '14', name: '14号线', color: '#4169E1' }, // 深蓝色
+      { id: '15', name: '15号线', color: '#F7BA1E' }, // 金色
+      { id: '16', name: '16号线', color: '#2F54EB' }, // 深蓝色
+      { id: '17', name: '17号线', color: '#00FFFF' }, // 青色
+      { id: '18', name: '18号线', color: '#556B2F' }, // 橄榄绿
+      { id: '浦江线', name: '浦江线', color: '#86909C' }, // 灰色
+      { id: '磁悬浮', name: '磁悬浮', color: '#E8684A' } // 橙色
     ] as Line[],
     // 各线路的站点信息
     stationsByLine: {
