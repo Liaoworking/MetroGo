@@ -1,0 +1,113 @@
+<!--metro.wxml-->
+<view class="container">  
+  <!-- 上半部分：地铁地图 -->
+  <view class="metro-map-container">
+    <map 
+      class="metro-map"
+      id="subwayMap"
+      longitude="121.473701"
+      latitude="31.230416"
+      scale="12"
+      markers="{{markers}}"
+      show-location="true"
+      bindmarkertap="onMarkerTap"
+    ></map>
+    <view class="map-placeholder" wx:if="false">
+      <text class="placeholder-text">上海地铁线路图</text>
+    </view>
+  </view>
+  
+  <!-- 下半部分：换乘信息区域 -->
+  <view class="transfer-container">
+    <!-- 左侧：线路列表 -->
+    <view class="line-list">
+      <view class="section-title">选择出发线路</view>
+      <scroll-view scroll-y class="scrollable">
+        <view 
+          wx:for="{{lines}}" 
+          wx:key="id"
+          class="line-item {{selectedLine === item.id ? 'selected' : ''}}"
+          data-id="{{item.id}}"
+          bindtap="onSelectLine"
+          style="border-left-color: {{item.color}}"
+        >
+          <text class="line-number" style="background-color: {{item.color}}; color: white;">{{item.name}}</text>
+          <text class="line-name">{{item.name}}</text>
+        </view>
+      </scroll-view>
+    </view>
+    
+    <!-- 中间：站点列表 -->
+    <view class="station-list" wx:if="selectedLine">
+      <view class="section-title">选择出发站点</view>
+      <scroll-view scroll-y class="scrollable">
+        <view 
+          wx:for="{{stationsByLine[selectedLine]}}" 
+          wx:key="id"
+          class="station-item {{selectedStation.id === item.id ? 'selected' : ''}}"
+          data-station="{{item}}"
+          bindtap="onSelectStation"
+        >
+          <text class="station-name">{{item.name}}</text>
+          <view wx:if="item.transfers.length > 0" class="transfer-badge">
+            <text wx:for="{{item.transfers}}" wx:key="index" wx:for-item="transfer">{{transfer}}号线</text>
+          </view>
+        </view>
+        <view class="empty-tip" wx:if="!stationsByLine[selectedLine]">
+          <text>暂无该线路站点信息</text>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="station-list-empty" wx:else>
+      <text>请先选择线路</text>
+    </view>
+    
+    <!-- 右侧：换乘信息 -->
+    <view class="transfer-info">
+      <view class="section-title">换乘信息</view>
+      <view class="info-content" wx:if="showTransferInfo && currentTransferInfo">
+        <view class="info-item">
+          <text class="info-label">出发线路：</text>
+          <text class="info-value">{{currentTransferInfo.fromLine}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">到达线路：</text>
+          <text class="info-value">{{currentTransferInfo.toLine}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">换乘站点：</text>
+          <text class="info-value">{{currentTransferInfo.fromStation}}</text>
+        </view>
+        <view class="info-item">
+          <text class="info-label">最佳车厢：</text>
+          <text class="info-value highlight">{{currentTransferInfo.bestCarriage}}</text>
+        </view>
+        <view class="info-item description">
+          <text class="info-label">换乘指引：</text>
+          <text class="info-value">{{currentTransferInfo.description}}</text>
+        </view>
+      </view>
+      <view class="info-content-empty" wx:else>
+        <text wx:if="selectedStation">请选择要换乘的线路</text>
+        <text wx:else>请先选择线路和站点</text>
+      </view>
+      
+      <!-- 换乘线路选择 -->
+      <view class="transfer-line-selection" wx:if="selectedStation && selectedStation.transfers.length > 0">
+        <text class="selection-title">选择换乘线路：</text>
+        <view class="transfer-line-buttons">
+          <button 
+            wx:for="{{selectedStation.transfers}}" 
+            wx:key="index"
+            class="transfer-line-btn"
+            size="mini"
+            data-line-id="{{item}}"
+            bindtap="getTransferInfo"
+          >
+            {{item}}号线
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

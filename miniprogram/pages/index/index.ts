@@ -50,5 +50,12 @@ Component({
         }
       })
     },
+    
+    // 跳转到地铁换乘页面
+    navigateToMetro() {
+      wx.navigateTo({
+        url: '/pages/metro/metro'
+      })
+    },
   },
 })

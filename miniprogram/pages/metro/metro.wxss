@@ -1,0 +1,299 @@
+/**metro.wxss**/
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+/* 页面头部 - 实际不使用，保留样式定义 */
+.header {
+  padding: 20rpx;
+  background-color: #ffffff;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+}
+
+.subtitle {
+  font-size: 24rpx;
+  color: #666666;
+  display: block;
+  margin-top: 8rpx;
+}
+
+/* 地铁图区域 */
+.metro-map-container {
+  flex: 1;
+  background-color: #ffffff;
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1rpx solid #eeeeee;
+}
+
+.metro-map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+.placeholder-text {
+  font-size: 32rpx;
+  color: #999999;
+}
+
+/* 换乘信息区域 */
+.transfer-container {
+  height: 50vh;
+  display: flex;
+  background-color: #ffffff;
+  margin: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.placeholder-text {
+  font-size: 32rpx;
+  color: #999999;
+}
+
+/* 换乘信息区域 */
+.transfer-container {
+  height: 50vh;
+  display: flex;
+  background-color: #ffffff;
+  margin: 10rpx;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+/* 线路列表 */
+.line-list {
+  flex: 3;
+  border-right: 1rpx solid #eeeeee;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 站点列表 */
+.station-list {
+  flex: 4;
+  border-right: 1rpx solid #eeeeee;
+  display: flex;
+  flex-direction: column;
+}
+
+.station-list-empty {
+  flex: 4;
+  border-right: 1rpx solid #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+/* 换乘信息 */
+.transfer-info {
+  flex: 5;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+}
+
+.section-title {
+  padding: 15rpx 20rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+  background-color: #f5f5f5;
+  border-bottom: 1rpx solid #eeeeee;
+}
+
+.scrollable {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* 线路列表项 */
+.line-item {
+  padding: 20rpx;
+  border-left: 6rpx solid transparent;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1rpx solid #eeeeee;
+}
+
+.line-item.selected {
+  background-color: #f0f7ff;
+}
+
+.line-number {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  margin-right: 15rpx;
+}
+
+.line-name {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+/* 站点列表项 */
+.station-item {
+  padding: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid #eeeeee;
+}
+
+.station-item.selected {
+  background-color: #f0f7ff;
+}
+
+.station-name {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.transfer-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.transfer-badge text {
+  font-size: 20rpx;
+  color: #1890ff;
+  background-color: #e6f7ff;
+  padding: 4rpx 8rpx;
+  border-radius: 4rpx;
+  margin-bottom: 4rpx;
+}
+
+.empty-tip {
+  padding: 40rpx 20rpx;
+  text-align: center;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+/* 换乘信息内容 */
+.info-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item {
+  margin-bottom: 20rpx;
+}
+
+.info-label {
+  font-size: 26rpx;
+  color: #666666;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.info-value.highlight {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+.info-item.description {
+  flex: 1;
+}
+
+.info-content-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+/* 换乘线路选择 */
+.transfer-line-selection {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #eeeeee;
+}
+
+.selection-title {
+  font-size: 26rpx;
+  color: #666666;
+  display: block;
+  margin-bottom: 15rpx;
+}
+
+.transfer-line-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.transfer-line-btn {
+  font-size: 24rpx !important;
+  margin: 0 !important;
+  padding: 0 15rpx !important;
+  height: 60rpx !important;
+  line-height: 60rpx !important;
+}
+
+/* 滚动条样式 */
+.scrollable::-webkit-scrollbar {
+  width: 4rpx;
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2rpx;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}

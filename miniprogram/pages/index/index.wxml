@@ -23,5 +23,10 @@
     <view class="usermotto">
       <text class="user-motto">{{motto}}</text>
     </view>
+    
+    <!-- 跳转到地铁换乘页面 -->
+    <view class="metro-button-container">
+      <button class="metro-button" bindtap="navigateToMetro">进入上海地铁极限换乘</button>
+    </view>
   </view>
 </scroll-view>
