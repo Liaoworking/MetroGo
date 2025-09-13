@@ -650,7 +650,9 @@ Component({
     showTransferInfo: false,
     currentTransferInfo: null as TransferInfo | null,
     // 地铁图数据
-    metroMapImage: '/assets/images/map.jpg'
+    metroMapImage: '/assets/images/map.jpg',
+    // 时间戳用于避免缓存
+    timestamp: Date.now()
   },
 
   methods: {
