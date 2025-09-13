@@ -676,16 +676,22 @@ Component({
     },
     
     // 图片加载成功事件
-    onMapImageLoad() {
-      console.log('地图图片加载成功');
+    onMapImageLoad(e: any) {
+      console.log('地图图片加载成功', e);
+      wx.showToast({
+        title: '地图加载成功',
+        icon: 'success',
+        duration: 1000
+      });
     },
 
     // 图片加载失败事件
-    onMapImageError() {
-      console.error('地图图片加载失败');
+    onMapImageError(e: any) {
+      console.error('地图图片加载失败', e);
       wx.showToast({
-        title: '地图加载失败',
-        icon: 'error'
+        title: '地图加载失败，请检查图片路径',
+        icon: 'none',
+        duration: 2000
       });
     },
 
