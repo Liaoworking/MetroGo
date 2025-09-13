@@ -31,23 +31,6 @@ interface TransferInfoMap {
   [key: string]: TransferInfo;
 }
 
-interface Marker {
-  id: number;
-  latitude: number;
-  longitude: number;
-  title: string;
-  iconPath?: string;
-  width?: number;
-  height?: number;
-  callout?: {
-    content: string;
-    color?: string;
-    fontSize?: number;
-    borderRadius?: number;
-    bgColor?: string;
-    display?: string;
-  };
-}
 
 Component({
   data: {
@@ -667,9 +650,7 @@ Component({
     showTransferInfo: false,
     currentTransferInfo: null as TransferInfo | null,
     // 地铁图数据
-    metroMapImage: '/assets/images/metro_map.svg',
-    // 地图标记数据
-    markers: [] as Marker[]
+    metroMapImage: '/assets/images/map.jpg'
   },
 
   methods: {
@@ -694,41 +675,18 @@ Component({
       });
     },
     
-    // 地图标记点击事件
-    onMarkerTap(e: any) {
-      const markerId = e.markerId;
-      // 查找点击的标记对应的站点名称
-      const clickedMarker = this.data.markers.find(marker => marker.id === markerId);
-      if (!clickedMarker) return;
-      
-      const stationName = clickedMarker.title;
-      
-      // 在所有线路中查找该站点
-      let foundStation: Station | null = null;
-      let foundLine: Line | null = null;
-      
-      for (const [lineId, stations] of Object.entries(this.data.stationsByLine)) {
-        const station = stations.find(s => s.name === stationName);
-        if (station) {
-          foundStation = station;
-          foundLine = this.data.lines.find(line => line.id === lineId) || null;
-          break;
-        }
-      }
-      
-      if (foundStation && foundLine) {
-        this.setData({
-          selectedLine: foundLine.id,
-          selectedStation: foundStation,
-          showTransferInfo: false,
-          currentTransferInfo: null
-        });
-        
-        wx.showToast({
-          title: `已选择${foundLine.name} ${foundStation.name}站`,
-          icon: 'none'
-        });
-      }
+    // 图片加载成功事件
+    onMapImageLoad() {
+      console.log('地图图片加载成功');
+    },
+
+    // 图片加载失败事件
+    onMapImageError() {
+      console.error('地图图片加载失败');
+      wx.showToast({
+        title: '地图加载失败',
+        icon: 'error'
+      });
     },
 
     // 获取换乘信息
@@ -774,46 +732,9 @@ Component({
       }
     },
     
-    // 初始化地图标记
+    // 组件初始化
     attached() {
-      // 为主要站点添加位置信息（这里使用的是模拟的经纬度数据）
-      const stationLocations = {
-        '人民广场': { latitude: 31.230416, longitude: 121.473701 },
-        '徐家汇': { latitude: 31.199076, longitude: 121.438016 },
-        '陆家嘴': { latitude: 31.239965, longitude: 121.508842 },
-        '南京东路': { latitude: 31.233224, longitude: 121.475098 },
-        '静安寺': { latitude: 31.221732, longitude: 121.457965 },
-        '世纪大道': { latitude: 31.223312, longitude: 121.501993 },
-        '上海火车站': { latitude: 31.245585, longitude: 121.455286 },
-        '虹桥火车站': { latitude: 31.194157, longitude: 121.396412 },
-        '上海南站': { latitude: 31.194625, longitude: 121.434542 },
-        '龙阳路': { latitude: 31.206993, longitude: 121.535205 }
-      };
-      
-      // 构建标记数组
-      const markers: Marker[] = [];
-      let markerId = 1;
-      
-      for (const [stationName, location] of Object.entries(stationLocations)) {
-        markers.push({
-          id: markerId++,
-          latitude: location.latitude,
-          longitude: location.longitude,
-          title: stationName,
-          callout: {
-            content: stationName,
-            color: '#000000',
-            fontSize: 12,
-            borderRadius: 5,
-            bgColor: '#ffffff',
-            display: 'BYCLICK'
-          }
-        });
-      }
-      
-      this.setData({
-        markers
-      });
+      console.log('地铁页面组件初始化完成');
     }
   }
 });

@@ -2,19 +2,13 @@
 <view class="container">  
   <!-- 上半部分：地铁地图 -->
   <view class="metro-map-container">
-    <map 
+    <image 
       class="metro-map"
-      id="subwayMap"
-      longitude="121.473701"
-      latitude="31.230416"
-      scale="12"
-      markers="{{markers}}"
-      show-location="true"
-      bindmarkertap="onMarkerTap"
-    ></map>
-    <view class="map-placeholder" wx:if="false">
-      <text class="placeholder-text">上海地铁线路图</text>
-    </view>
+      src="/assets/images/map.jpg"
+      mode="aspectFit"
+      bindload="onMapImageLoad"
+      binderror="onMapImageError"
+    ></image>
   </view>
   
   <!-- 下半部分：换乘信息区域 -->
