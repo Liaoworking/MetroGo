@@ -4,7 +4,7 @@
   <view class="metro-map-container">
     <image 
       class="metro-map"
-      src="/assets/images/map.jpg"
+      src="../../assets/images/map.jpg"
       mode="aspectFit"
       bindload="onMapImageLoad"
       binderror="onMapImageError"
