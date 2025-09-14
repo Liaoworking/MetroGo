@@ -737,12 +737,11 @@ Component({
         type: 'light'
       });
       
-      // 确保动画开启，并设置统一的缩放
-      this.setData({
-        useAnimation: true,
-        animationDuration: 250,
-        isZoomedIn: newIsZoomedIn,
-        scaleValue: newScale
+      // 使用自定义平滑动画
+      this.animateScale(this.data.scaleValue, newScale, 250, () => {
+        this.setData({
+          isZoomedIn: newIsZoomedIn
+        });
       });
 
       // 显示提示 - 使用更友好的图标
@@ -752,7 +751,41 @@ Component({
         duration: 600
       });
 
-      console.log(`双击${newIsZoomedIn ? '放大' : '缩小'}，缩放比例: ${newScale}，动画时长: 250ms`);
+      console.log(`双击${newIsZoomedIn ? '放大' : '缩小'}，缩放比例: ${newScale}，使用自定义动画: 250ms`);
+    },
+
+    // 自定义平滑缩放动画
+    animateScale(fromScale: number, toScale: number, duration: number, callback?: () => void) {
+      const startTime = Date.now();
+      const scaleDiff = toScale - fromScale;
+      const frameTime = 16; // 约60fps
+      
+      const animate = () => {
+        const elapsedTime = Date.now() - startTime;
+        const progress = Math.min(elapsedTime / duration, 1);
+        
+        // 使用 easeOutCubic 缓动函数，让动画更平滑
+        const easeProgress = 1 - Math.pow(1 - progress, 3);
+        const currentScale = fromScale + scaleDiff * easeProgress;
+        
+        this.setData({
+          useAnimation: false, // 关闭系统动画，使用我们的自定义动画
+          scaleValue: currentScale
+        });
+        
+        if (progress < 1) {
+          setTimeout(animate, frameTime);
+        } else {
+          // 动画完成，设置最终值
+          this.setData({
+            scaleValue: toScale,
+            useAnimation: true // 重新启用系统动画用于手势操作
+          });
+          if (callback) callback();
+        }
+      };
+      
+      animate();
     },
 
     // 处理缩放事件
@@ -788,11 +821,10 @@ Component({
 
     // 重置地图位置和缩放
     resetMapPosition() {
-      this.setData({
-        useAnimation: true,
-        animationDuration: 250,
-        scaleValue: this.data.normalScale,
-        isZoomedIn: false
+      this.animateScale(this.data.scaleValue, this.data.normalScale, 250, () => {
+        this.setData({
+          isZoomedIn: false
+        });
       });
       wx.showToast({
         title: '地图已重置',
@@ -847,11 +879,10 @@ Component({
     // 快速切换到放大状态 - 用于外部调用
     quickZoomIn() {
       if (!this.data.isZoomedIn) {
-        this.setData({
-          useAnimation: true,
-          animationDuration: 250,
-          isZoomedIn: true,
-          scaleValue: this.data.zoomedScale
+        this.animateScale(this.data.scaleValue, this.data.zoomedScale, 250, () => {
+          this.setData({
+            isZoomedIn: true
+          });
         });
       }
     },
@@ -859,11 +890,10 @@ Component({
     // 快速切换到正常状态 - 用于外部调用  
     quickZoomOut() {
       if (this.data.isZoomedIn) {
-        this.setData({
-          useAnimation: true,
-          animationDuration: 250,
-          isZoomedIn: false,
-          scaleValue: this.data.normalScale
+        this.animateScale(this.data.scaleValue, this.data.normalScale, 250, () => {
+          this.setData({
+            isZoomedIn: false
+          });
         });
       }
     },
