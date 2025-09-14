@@ -713,7 +713,7 @@ Component({
     },
 
     // 图片点击事件 - 实现双击检测
-    onImageTap(e: any) {
+    onImageTap(_e: any) {
       const currentTime = Date.now();
       const timeDifference = currentTime - this.data.lastTapTime;
       
@@ -760,6 +760,11 @@ Component({
       const scaleDiff = toScale - fromScale;
       const frameTime = 16; // 约60fps
       
+      // 先关闭系统动画
+      this.setData({
+        useAnimation: false
+      });
+      
       const animate = () => {
         const elapsedTime = Date.now() - startTime;
         const progress = Math.min(elapsedTime / duration, 1);
@@ -769,18 +774,25 @@ Component({
         const currentScale = fromScale + scaleDiff * easeProgress;
         
         this.setData({
-          useAnimation: false, // 关闭系统动画，使用我们的自定义动画
           scaleValue: currentScale
         });
         
         if (progress < 1) {
           setTimeout(animate, frameTime);
         } else {
-          // 动画完成，设置最终值
+          // 动画完成后，保持系统动画关闭状态，避免二次动画
           this.setData({
             scaleValue: toScale,
-            useAnimation: true // 重新启用系统动画用于手势操作
+            // 不立即重新启用动画，让movable-view的内部状态稳定
           });
+          
+          // 等待一段时间让movable-view内部状态同步，然后再启用动画
+          setTimeout(() => {
+            this.setData({
+              useAnimation: true
+            });
+          }, 100);
+          
           if (callback) callback();
         }
       };
@@ -793,18 +805,21 @@ Component({
       console.log('地图缩放中', e.detail);
       const currentScale = e.detail.scale;
       
-      // 更新缩放比例
-      this.setData({
-        scaleValue: currentScale
-      });
-      
-      // 根据当前缩放比例更新放大状态
-      // 如果缩放比例接近放大状态，则认为是放大状态
-      const isCurrentlyZoomed = Math.abs(currentScale - this.data.zoomedScale) < Math.abs(currentScale - this.data.normalScale);
-      if (this.data.isZoomedIn !== isCurrentlyZoomed) {
+      // 只有在系统动画启用时才同步状态，避免与自定义动画冲突
+      if (this.data.useAnimation) {
+        // 更新缩放比例
         this.setData({
-          isZoomedIn: isCurrentlyZoomed
+          scaleValue: currentScale
         });
+        
+        // 根据当前缩放比例更新放大状态
+        // 如果缩放比例接近放大状态，则认为是放大状态
+        const isCurrentlyZoomed = Math.abs(currentScale - this.data.zoomedScale) < Math.abs(currentScale - this.data.normalScale);
+        if (this.data.isZoomedIn !== isCurrentlyZoomed) {
+          this.setData({
+            isZoomedIn: isCurrentlyZoomed
+          });
+        }
       }
     },
 
