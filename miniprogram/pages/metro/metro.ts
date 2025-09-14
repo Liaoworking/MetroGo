@@ -36,28 +36,28 @@ interface TransferInfoMap {
 
 Component({
   data: {
-    // 上海地铁线路数据
+    // 上海地铁线路数据 - 使用官方标准颜色
     lines: [
-      { id: '1', name: '1号线', color: '#FF4D4F' }, // 红色
-      { id: '2', name: '2号线', color: '#73D13D' }, // 绿色
-      { id: '3', name: '3号线', color: '#FFDE59' }, // 黄色
-      { id: '4', name: '4号线', color: '#722ED1' }, // 紫色
-      { id: '5', name: '5号线', color: '#FAAD14' }, // 紫红色
-      { id: '6', name: '6号线', color: '#13C2C2' }, // 品红色
-      { id: '7', name: '7号线', color: '#FF8C00' }, // 橙色
-      { id: '8', name: '8号线', color: '#007AFF' }, // 蓝色
-      { id: '9', name: '9号线', color: '#D4AF37' }, // 金色
-      { id: '10', name: '10号线', color: '#D897EB' }, // 淡紫色
-      { id: '11', name: '11号线', color: '#A52A2A' }, // 棕色
-      { id: '12', name: '12号线', color: '#0FC6C2' }, // 深绿色
-      { id: '13', name: '13号线', color: '#FF9999' }, // 粉色
-      { id: '14', name: '14号线', color: '#4169E1' }, // 深蓝色
-      { id: '15', name: '15号线', color: '#F7BA1E' }, // 金色
-      { id: '16', name: '16号线', color: '#2F54EB' }, // 深蓝色
-      { id: '17', name: '17号线', color: '#00FFFF' }, // 青色
-      { id: '18', name: '18号线', color: '#556B2F' }, // 橄榄绿
-      { id: '浦江线', name: '浦江线', color: '#86909C' }, // 灰色
-      { id: '磁悬浮', name: '磁悬浮', color: '#E8684A' } // 橙色
+      { id: '1', name: '1号线', color: '#e3002b' }, // 官方红色
+      { id: '2', name: '2号线', color: '#8cc220' }, // 官方绿色
+      { id: '3', name: '3号线', color: '#fcd600' }, // 官方黄色
+      { id: '4', name: '4号线', color: '#461d84' }, // 官方紫色
+      { id: '5', name: '5号线', color: '#944d9a' }, // 官方紫红色
+      { id: '6', name: '6号线', color: '#d40068' }, // 官方品红色
+      { id: '7', name: '7号线', color: '#ed6f00' }, // 官方橙色
+      { id: '8', name: '8号线', color: '#0094d8' }, // 官方蓝色
+      { id: '9', name: '9号线', color: '#87caed' }, // 官方浅蓝色
+      { id: '10', name: '10号线', color: '#c6afd4' }, // 官方淡紫色
+      { id: '11', name: '11号线', color: '#871c2b' }, // 官方深红色
+      { id: '12', name: '12号线', color: '#007a60' }, // 官方深绿色
+      { id: '13', name: '13号线', color: '#e999c0' }, // 官方粉色
+      { id: '14', name: '14号线', color: '#9AA341' }, // 官方橄榄绿
+      { id: '15', name: '15号线', color: '#b6a27a' }, // 官方棕色
+      { id: '16', name: '16号线', color: '#98d1c0' }, // 官方青绿色
+      { id: '17', name: '17号线', color: '#bc796f' }, // 官方棕褐色
+      { id: '18', name: '18号线', color: '#c4984e' }, // 官方金棕色
+      { id: '浦江线', name: '浦江线', color: '#b5b5b6' }, // 官方灰色
+      { id: '磁悬浮', name: '磁悬浮', color: '#0c7573' } // 官方深青色
     ] as Line[],
     // 各线路的站点信息
     stationsByLine: {
@@ -658,10 +658,12 @@ Component({
     metroMapImage: '/assets/images/map.jpg',
     // 时间戳用于避免缓存
     timestamp: Date.now(),
-    // 地图缩放相关配置
+    // 地图缩放和位置相关配置
     scaleMin: 0.8,      // 最小缩放比例
     scaleMax: 4.0,      // 最大缩放比例
     scaleValue: 1.0,    // 当前缩放比例
+    mapX: 0,            // 地图X坐标位置
+    mapY: 0,            // 地图Y坐标位置
     damping: 20,        // 阻尼系数
     friction: 2,        // 摩擦系数
     // 双击相关配置
@@ -779,10 +781,48 @@ Component({
     // 图片加载成功事件
     onMapImageLoad(e: any) {
       console.log('地图图片加载成功', e);
+      
+      // 获取图片尺寸信息
+      const imageInfo = e.detail;
+      console.log('图片尺寸信息:', imageInfo);
+      
+      // 计算居中位置
+      this.centerMapImage();
+      
       wx.showToast({
         title: '地图加载成功',
         icon: 'success',
         duration: 1000
+      });
+    },
+
+    // 居中显示地图图片
+    centerMapImage() {
+      // 获取系统信息
+      const systemInfo = wx.getSystemInfoSync();
+      const screenWidth = systemInfo.windowWidth;
+      const screenHeight = systemInfo.windowHeight;
+      
+      // 获取容器高度（屏幕高度的一半，因为下半部分是换乘信息）
+      const containerHeight = screenHeight * 0.5;
+      
+      // movable-view的尺寸是150%，所以计算居中位置
+      // 让movable-view居中显示，需要将其向左上偏移25%的距离
+      const centerX = -(screenWidth * 0.25); // 向左偏移25%
+      const centerY = -(containerHeight * 0.25); // 向上偏移25%
+      
+      console.log('居中位置计算:', {
+        screenWidth,
+        screenHeight,
+        containerHeight,
+        centerX,
+        centerY
+      });
+      
+      // 设置居中位置
+      this.setData({
+        mapX: centerX,
+        mapY: centerY
       });
     },
 
@@ -931,6 +971,10 @@ Component({
           isZoomedIn: false
         });
       });
+      
+      // 重置到居中位置
+      this.centerMapImage();
+      
       wx.showToast({
         title: '地图已重置',
         icon: 'success',
@@ -1013,6 +1057,11 @@ Component({
     // 组件初始化
     attached() {
       console.log('地铁页面组件初始化完成');
+      
+      // 初始化地图居中位置
+      setTimeout(() => {
+        this.centerMapImage();
+      }, 100);
       
       // 显示使用提示
       wx.showToast({

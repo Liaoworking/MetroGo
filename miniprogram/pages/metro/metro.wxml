@@ -9,16 +9,19 @@
       scale-min="{{scaleMin}}"
       scale-max="{{scaleMax}}"
       scale-value="{{scaleValue}}"
+      x="{{mapX}}"
+      y="{{mapY}}"
       out-of-bounds
       inertia
       animation="{{useAnimation}}"
       duration="{{animationDuration}}"
       bindscale="onScale"
+      bindchange="onChange"
     >
       <image 
         class="metro-map"
         src="../../assets/images/metro-map-new.png"
-        mode="scaleToFill"
+        mode="aspectFit"
         bindload="onMapImageLoad"
         binderror="onMapImageError"
         bindtap="onImageTap"
