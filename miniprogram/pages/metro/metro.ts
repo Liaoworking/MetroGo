@@ -1,4 +1,6 @@
 // metro.ts
+// 超级有用的地铁线路图网站
+// https://commons.m.wikimedia.org/wiki/Category:Maps_of_Shanghai_Metro
 // 定义类型接口
 interface Line {
   id: string;

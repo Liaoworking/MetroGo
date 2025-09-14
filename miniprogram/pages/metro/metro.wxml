@@ -17,7 +17,7 @@
     >
       <image 
         class="metro-map"
-        src="../../assets/images/metro-map-new.jpg"
+        src="../../assets/images/metro-map-new.png"
         mode="scaleToFill"
         bindload="onMapImageLoad"
         binderror="onMapImageError"
@@ -120,20 +120,8 @@
             </button>
             </view>
           </view>
-          <view>换乘信息</view>
+          <!-- <view>换乘信息</view> -->
           <view class="info-content" wx:if="{{showTransferInfo && currentTransferInfo}}">
-            <view class="info-item">
-              <text class="info-label">出发线路：</text>
-              <text class="info-value">{{currentTransferInfo.fromLine}}</text>
-            </view>
-            <view class="info-item">
-              <text class="info-label">到达线路：</text>
-              <text class="info-value">{{currentTransferInfo.toLine}}</text>
-            </view>
-            <view class="info-item">
-              <text class="info-label">换乘站点：</text>
-              <text class="info-value">{{currentTransferInfo.fromStation}}</text>
-            </view>
             <view class="info-item">
               <text class="info-label">最佳车厢：</text>
               <text class="info-value highlight">{{currentTransferInfo.bestCarriage}}</text>
