@@ -149,9 +149,14 @@
         </view>
         
         <!-- 没有换乘线路的站点提示 -->
-        <view class="no-transfer-tip" wx:else>
+        <view class="no-transfer-tip" wx:elif="{{selectedStation && (!selectedStation.transfers || selectedStation.transfers.length === 0)}}">
           <text>{{selectedStation.name}} 是非换乘站点</text>
           <text>该站点无法换乘其他线路</text>
+        </view>
+        
+        <!-- 兜底情况 -->
+        <view class="no-station-tip" wx:else>
+          <text>数据加载中...</text>
         </view>
       </view>
     </view>
