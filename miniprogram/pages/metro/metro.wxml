@@ -1,20 +1,13 @@
 <!--metro.wxml-->
 <view class="container">  
   <!-- 上半部分：地铁地图 -->
-  <view class="metro-map-container">
-    <image 
-      class="metro-map"
+  <image 
+      class="metro-map-container"
       src="../../assets/images/metro-map-new.jpg"
       mode="aspectFit"
       bindload="onMapImageLoad"
       binderror="onMapImageError"
     ></image>
-    <!-- 调试：显示当前使用的路径 -->
-    <view class="debug-info" style="position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; font-size: 12px;">
-      图片路径: ../../assets/images/metro-map-new.jpg
-    </view>
-  </view>
-  
   <!-- 下半部分：换乘信息区域 -->
   <view class="transfer-container">
     <!-- 左侧：线路列表 -->
