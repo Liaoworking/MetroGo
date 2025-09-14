@@ -352,6 +352,15 @@ page {
   padding: 0 15rpx !important;
   height: 60rpx !important;
   line-height: 60rpx !important;
+  background-color: #f5f5f5 !important;
+  color: #666666 !important;
+  border: 1rpx solid #dddddd !important;
+}
+
+.transfer-line-btn.selected {
+  background-color: #1890ff !important;
+  color: #ffffff !important;
+  border: 1rpx solid #1890ff !important;
 }
 
 /* 滚动条样式 */

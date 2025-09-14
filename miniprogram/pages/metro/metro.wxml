@@ -108,16 +108,16 @@
           <view class="transfer-line-selection">
             <text class="selection-title">换乘至：</text>
             <view class="transfer-line-buttons">
-              <button 
-                wx:for="{{selectedStation.transfers}}" 
-                wx:key="index"
-                class="transfer-line-btn"
-                size="mini"
-                data-line-id="{{item}}"
-                bindtap="getTransferInfo"
-              >
-                {{item}}号线
-              </button>
+            <button 
+              wx:for="{{selectedStation.transfers}}" 
+              wx:key="index"
+              class="transfer-line-btn {{selectedTransferLine === item ? 'selected' : ''}}"
+              size="mini"
+              data-line-id="{{item}}"
+              bindtap="getTransferInfo"
+            >
+              {{item}}号线
+            </button>
             </view>
           </view>
           <view>换乘信息</view>

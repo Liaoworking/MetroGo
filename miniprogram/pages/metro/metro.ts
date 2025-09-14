@@ -647,6 +647,7 @@ Component({
     selectedLine: '',
     selectedStation: null as Station | null,
     selectedDirection: '', // 当前选中的方向
+    selectedTransferLine: '', // 当前选中的换乘线路
     currentLineDirections: null as { direction1: string; direction2: string } | null, // 当前线路的两个方向
     // 显示的换乘信息
     showTransferInfo: false,
@@ -720,6 +721,7 @@ Component({
         selectedLine: lineId,
         selectedStation: newSelectedStation,
         selectedDirection: '', // 重置方向选择
+        selectedTransferLine: '', // 重置换乘线路选择
         currentLineDirections: directions, // 设置当前线路的方向信息
         showTransferInfo: false,
         currentTransferInfo: null
@@ -763,6 +765,7 @@ Component({
       
       this.setData({
         selectedStation: station,
+        selectedTransferLine: '', // 重置换乘线路选择
         currentLineDirections: directions, // 确保方向信息可用
         showTransferInfo: false,
         currentTransferInfo: null
@@ -959,6 +962,7 @@ Component({
       
       if (transferInfo) {
         this.setData({
+          selectedTransferLine: toLineId, // 设置选中的换乘线路
           currentTransferInfo: transferInfo,
           showTransferInfo: true
         });
@@ -968,6 +972,7 @@ Component({
         const toLine = this.data.lines.find(line => line.id === toLineId)?.name || '';
         
         this.setData({
+          selectedTransferLine: toLineId, // 设置选中的换乘线路
           currentTransferInfo: {
             fromLine: fromLine,
             toLine: toLine,
