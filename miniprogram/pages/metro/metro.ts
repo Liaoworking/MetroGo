@@ -807,10 +807,8 @@ Component({
       
       // 只有在系统动画启用时才同步状态，避免与自定义动画冲突
       if (this.data.useAnimation) {
-        // 更新缩放比例
-        this.setData({
-          scaleValue: currentScale
-        });
+        // 不要重新设置 scaleValue，让 movable-view 自己管理手势操作时的缩放
+        // 只更新我们的双击状态追踪
         
         // 根据当前缩放比例更新放大状态
         // 如果缩放比例接近放大状态，则认为是放大状态
@@ -826,10 +824,18 @@ Component({
     // 处理移动和缩放变化事件
     onChange(e: any) {
       console.log('地图位置/缩放变化', e.detail);
-      // 可以在这里添加位置变化的处理逻辑
-      if (e.detail.scale !== undefined) {
+      
+      // 只有在系统动画启用时才处理变化事件，避免与自定义动画冲突
+      if (this.data.useAnimation && e.detail.scale !== undefined) {
+        // 手势操作结束时，同步最终的缩放值到我们的状态
+        // 但不要在操作过程中频繁同步，避免冲突
+        const currentScale = e.detail.scale;
+        
+        // 更新双击状态
+        const isCurrentlyZoomed = Math.abs(currentScale - this.data.zoomedScale) < Math.abs(currentScale - this.data.normalScale);
         this.setData({
-          scaleValue: e.detail.scale
+          isZoomedIn: isCurrentlyZoomed,
+          scaleValue: currentScale
         });
       }
     },
