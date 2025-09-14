@@ -6,11 +6,12 @@
       class="metro-map-movable"
       direction="all"
       scale
-      scale-min="0.8"
-      scale-max="4"
-      scale-value="1"
+      scale-min="{{scaleMin}}"
+      scale-max="{{scaleMax}}"
+      scale-value="{{scaleValue}}"
       out-of-bounds
       inertia
+      animation="{{true}}"
       bindscale="onScale"
     >
       <image 
@@ -19,6 +20,7 @@
         mode="scaleToFill"
         bindload="onMapImageLoad"
         binderror="onMapImageError"
+        bindtap="onImageTap"
         show-menu-by-longpress="{{false}}"
       ></image>
     </movable-view>

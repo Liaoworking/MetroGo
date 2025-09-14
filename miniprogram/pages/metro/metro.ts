@@ -658,7 +658,13 @@ Component({
     scaleMax: 4.0,      // 最大缩放比例
     scaleValue: 1.0,    // 当前缩放比例
     damping: 20,        // 阻尼系数
-    friction: 2         // 摩擦系数
+    friction: 2,        // 摩擦系数
+    // 双击相关配置
+    lastTapTime: 0,     // 上次点击时间
+    doubleTapInterval: 300, // 双击间隔时间（毫秒）
+    isZoomedIn: false,  // 是否处于放大状态
+    normalScale: 1.0,   // 正常缩放比例
+    zoomedScale: 2.5    // 放大缩放比例
   },
 
   methods: {
@@ -703,12 +709,64 @@ Component({
       });
     },
 
+    // 图片点击事件 - 实现双击检测
+    onImageTap(e: any) {
+      const currentTime = Date.now();
+      const timeDifference = currentTime - this.data.lastTapTime;
+      
+      if (timeDifference < this.data.doubleTapInterval && timeDifference > 50) {
+        // 双击事件 - 阻止事件冒泡，防止与拖拽冲突
+        this.handleDoubleTap();
+      }
+      
+      this.setData({
+        lastTapTime: currentTime
+      });
+    },
+
+    // 处理双击事件 - 切换放大缩小
+    handleDoubleTap() {
+      const newIsZoomedIn = !this.data.isZoomedIn;
+      const newScale = newIsZoomedIn ? this.data.zoomedScale : this.data.normalScale;
+      
+      // 添加触觉反馈
+      wx.vibrateShort({
+        type: 'light'
+      });
+      
+      this.setData({
+        isZoomedIn: newIsZoomedIn,
+        scaleValue: newScale
+      });
+
+      // 显示提示 - 使用更友好的图标
+      wx.showToast({
+        title: newIsZoomedIn ? '🔍 已放大' : '🔎 已还原',
+        icon: 'none',
+        duration: 600
+      });
+
+      console.log(`双击${newIsZoomedIn ? '放大' : '缩小'}，缩放比例: ${newScale}`);
+    },
+
     // 处理缩放事件
     onScale(e: any) {
       console.log('地图缩放中', e.detail);
+      const currentScale = e.detail.scale;
+      
+      // 更新缩放比例
       this.setData({
-        scaleValue: e.detail.scale
+        scaleValue: currentScale
       });
+      
+      // 根据当前缩放比例更新放大状态
+      // 如果缩放比例接近放大状态，则认为是放大状态
+      const isCurrentlyZoomed = Math.abs(currentScale - this.data.zoomedScale) < Math.abs(currentScale - this.data.normalScale);
+      if (this.data.isZoomedIn !== isCurrentlyZoomed) {
+        this.setData({
+          isZoomedIn: isCurrentlyZoomed
+        });
+      }
     },
 
     // 处理移动和缩放变化事件
@@ -725,7 +783,8 @@ Component({
     // 重置地图位置和缩放
     resetMapPosition() {
       this.setData({
-        scaleValue: 1.0
+        scaleValue: this.data.normalScale,
+        isZoomedIn: false
       });
       wx.showToast({
         title: '地图已重置',
@@ -777,9 +836,30 @@ Component({
       }
     },
     
+    // 快速切换到放大状态 - 用于外部调用
+    quickZoomIn() {
+      if (!this.data.isZoomedIn) {
+        this.handleDoubleTap();
+      }
+    },
+
+    // 快速切换到正常状态 - 用于外部调用  
+    quickZoomOut() {
+      if (this.data.isZoomedIn) {
+        this.handleDoubleTap();
+      }
+    },
+
     // 组件初始化
     attached() {
       console.log('地铁页面组件初始化完成');
+      
+      // 显示使用提示
+      wx.showToast({
+        title: '💡 双击地图可放大缩小',
+        icon: 'none',
+        duration: 2000
+      });
     }
   }
 });
