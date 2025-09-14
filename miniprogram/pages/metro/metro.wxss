@@ -269,16 +269,21 @@ page {
   justify-content: center;
   color: #999999;
   font-size: 28rpx;
+  text-align: center;
+  padding: 40rpx 20rpx;
 }
 
 .no-transfer-tip text:first-child {
-  margin-bottom: 10rpx;
+  margin-bottom: 15rpx;
   color: #666666;
   font-weight: bold;
+  font-size: 30rpx;
 }
 
 .no-transfer-tip text:last-child {
   font-size: 24rpx;
+  color: #999999;
+  line-height: 1.4;
 }
 
 .info-content-empty {
