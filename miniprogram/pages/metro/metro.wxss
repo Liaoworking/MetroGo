@@ -261,9 +261,10 @@ page {
 
 /* 换乘线路选择 */
 .transfer-line-selection {
-  margin-top: 20rpx;
-  padding-top: 20rpx;
-  border-top: 1rpx solid #eeeeee;
+  margin-top: 0rpx;
+  padding-top: 0rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #eeeeee;
 }
 
 .selection-title {

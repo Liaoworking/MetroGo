@@ -26,7 +26,7 @@
     
     <!-- 跳转到地铁换乘页面 -->
     <view class="metro-button-container">
-      <button class="metro-button" bindtap="navigateToMetro">进入上海地铁极限换乘</button>
+      <button class="metro-button" bindtap="navigateToMetro">地铁极限换乘</button>
     </view>
   </view>
 </scroll-view>
