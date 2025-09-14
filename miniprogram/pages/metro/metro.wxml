@@ -41,7 +41,7 @@
           class="line-item {{selectedLine === item.id ? 'selected' : ''}}"
           data-id="{{item.id}}"
           bindtap="onSelectLine"
-          style="border-left-color: {{item.color}}"
+          style="--line-color: {{item.color}}"
         >
           <text class="line-name">{{item.name}}</text>
         </view>

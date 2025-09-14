@@ -155,6 +155,17 @@ page {
   align-items: center;
   background-color: #ffffff;
   border-bottom: 1rpx solid #eeeeee;
+  position: relative;
+}
+
+.line-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15rpx;
+  bottom: 15rpx;
+  width: 6rpx;
+  background-color: var(--line-color, transparent);
 }
 
 .line-item.selected {
