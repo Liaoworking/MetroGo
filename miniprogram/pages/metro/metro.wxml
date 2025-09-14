@@ -46,7 +46,7 @@
     </view>
     
     <!-- 中间：站点列表 -->
-    <view class="station-list" wx:if="selectedLine">
+    <view class="station-list" wx:if="{{selectedLine}}">
       <view class="section-title">站点</view>
       <scroll-view scroll-y class="scrollable">
         <view 
@@ -57,7 +57,7 @@
           bindtap="onSelectStation"
         >
           <text class="station-name">{{item.name}}</text>
-          <view wx:if="item.transfers.length > 0" class="transfer-badge">
+          <view wx:if="{{item.transfers.length > 0}}" class="transfer-badge">
             <text wx:for="{{item.transfers}}" wx:key="index" wx:for-item="transfer">{{transfer}}号线</text>
           </view>
         </view>
@@ -80,7 +80,7 @@
       <!-- 选择了站点后显示完整功能 -->
       <view wx:elif="{{selectedStation && selectedStation.id}}">
         <!-- 列车方向选择 -->
-        <view class="direction-selection" wx:if="selectedLine && currentLineDirections">
+        <view class="direction-selection" wx:if="{{selectedLine && currentLineDirections}}">
           <text class="selection-title">选择列车方向：</text>
           <view class="direction-buttons">
             <button 
@@ -121,7 +121,7 @@
             </view>
           </view>
           <view>换乘信息</view>
-          <view class="info-content" wx:if="showTransferInfo && currentTransferInfo">
+          <view class="info-content" wx:if="{{showTransferInfo && currentTransferInfo}}">
             <view class="info-item">
               <text class="info-label">出发线路：</text>
               <text class="info-value">{{currentTransferInfo.fromLine}}</text>
