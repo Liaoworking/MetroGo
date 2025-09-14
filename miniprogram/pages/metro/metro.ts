@@ -703,9 +703,22 @@ Component({
       const lineId = e.currentTarget.dataset.id;
       const directions = this.getLineDirections(lineId);
       
+      // 检查当前选择的站点是否属于新选择的线路
+      let newSelectedStation = null;
+      if (this.data.selectedStation) {
+        const stationsByLine = this.data.stationsByLine as StationMap;
+        const stationsInNewLine = stationsByLine[lineId] || [];
+        const stationExists = stationsInNewLine.some(station => station.id === this.data.selectedStation?.id);
+        
+        // 如果当前站点属于新选择的线路，保持选择；否则重置
+        if (stationExists) {
+          newSelectedStation = this.data.selectedStation;
+        }
+      }
+      
       this.setData({
         selectedLine: lineId,
-        selectedStation: null,
+        selectedStation: newSelectedStation,
         selectedDirection: '', // 重置方向选择
         currentLineDirections: directions, // 设置当前线路的方向信息
         showTransferInfo: false,
