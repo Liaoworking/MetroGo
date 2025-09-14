@@ -740,8 +740,16 @@ Component({
     // 选择站点
     onSelectStation(e: any) {
       const station = e.currentTarget.dataset.station;
+      
+      // 如果已经选择了线路，需要重新设置方向信息
+      let directions = null;
+      if (this.data.selectedLine) {
+        directions = this.getLineDirections(this.data.selectedLine);
+      }
+      
       this.setData({
         selectedStation: station,
+        currentLineDirections: directions, // 确保方向信息可用
         showTransferInfo: false,
         currentTransferInfo: null
       });
