@@ -129,10 +129,10 @@
               <text class="info-label">最佳车厢：</text>
               <text class="info-value highlight">{{currentTransferInfo.bestCarriage}}</text>
             </view>
-            <view class="info-item description">
+            <!-- <view class="info-item description">
               <text class="info-label">换乘指引：</text>
               <text class="info-value">{{currentTransferInfo.description}}</text>
-            </view>
+            </view> -->
           </view>
           <view class="info-content-empty" wx:else>
             <text>请选择要换乘的线路</text>

@@ -868,12 +868,12 @@ Component({
         });
       });
 
-      // 显示提示 - 使用更友好的图标
-      wx.showToast({
-        title: newIsZoomedIn ? '🔍 已放大' : '🔎 已还原',
-        icon: 'none',
-        duration: 600
-      });
+      // // 显示提示 - 使用更友好的图标
+      // wx.showToast({
+      //   title: newIsZoomedIn ? '🔍 已放大' : '🔎 已还原',
+      //   icon: 'none',
+      //   duration: 600
+      // });
 
       console.log(`双击${newIsZoomedIn ? '放大' : '缩小'}，缩放比例: ${newScale}，使用自定义动画: 250ms`);
     },
