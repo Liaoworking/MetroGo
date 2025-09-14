@@ -652,7 +652,13 @@ Component({
     // 地铁图数据
     metroMapImage: '/assets/images/map.jpg',
     // 时间戳用于避免缓存
-    timestamp: Date.now()
+    timestamp: Date.now(),
+    // 地图缩放相关配置
+    scaleMin: 0.5,      // 最小缩放比例
+    scaleMax: 3.0,      // 最大缩放比例
+    scaleValue: 1.0,    // 当前缩放比例
+    damping: 20,        // 阻尼系数
+    friction: 2         // 摩擦系数
   },
 
   methods: {
@@ -694,6 +700,37 @@ Component({
         title: '地图加载失败，请检查图片路径',
         icon: 'none',
         duration: 2000
+      });
+    },
+
+    // 处理缩放事件
+    onScale(e: any) {
+      console.log('地图缩放中', e.detail);
+      this.setData({
+        scaleValue: e.detail.scale
+      });
+    },
+
+    // 处理移动和缩放变化事件
+    onChange(e: any) {
+      console.log('地图位置/缩放变化', e.detail);
+      // 可以在这里添加位置变化的处理逻辑
+      if (e.detail.scale !== undefined) {
+        this.setData({
+          scaleValue: e.detail.scale
+        });
+      }
+    },
+
+    // 重置地图位置和缩放
+    resetMapPosition() {
+      this.setData({
+        scaleValue: 1.0
+      });
+      wx.showToast({
+        title: '地图已重置',
+        icon: 'success',
+        duration: 1000
       });
     },
 

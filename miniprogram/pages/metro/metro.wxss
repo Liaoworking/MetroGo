@@ -49,12 +49,25 @@ page {
   overflow: hidden;
   position: relative;
   border-bottom: 1rpx solid #eeeeee;
+  width: 100%;
+  height: 50vh;
+}
+
+/* 可移动视图容器 */
+.metro-map-movable {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .metro-map {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
+  max-width: none;
+  max-height: none;
 }
 
 .map-placeholder {

@@ -1,13 +1,31 @@
 <!--metro.wxml-->
 <view class="container">  
   <!-- 上半部分：地铁地图 -->
-  <image 
-      class="metro-map-container"
-      src="../../assets/images/metro-map-new.jpg"
-      mode="aspectFit"
-      bindload="onMapImageLoad"
-      binderror="onMapImageError"
-    ></image>
+  <movable-area class="metro-map-container" scale-area>
+    <movable-view 
+      class="metro-map-movable"
+      direction="all"
+      scale
+      scale-min="{{scaleMin}}"
+      scale-max="{{scaleMax}}"
+      scale-value="{{scaleValue}}"
+      out-of-bounds
+      inertia
+      damping="{{damping}}"
+      friction="{{friction}}"
+      bindscale="onScale"
+      bindchange="onChange"
+    >
+      <image 
+        class="metro-map"
+        src="../../assets/images/metro-map-new.jpg"
+        mode="aspectFit"
+        bindload="onMapImageLoad"
+        binderror="onMapImageError"
+        show-menu-by-longpress="{{false}}"
+      ></image>
+    </movable-view>
+  </movable-area>
   <!-- 下半部分：换乘信息区域 -->
   <view class="transfer-container">
     <!-- 左侧：线路列表 -->
