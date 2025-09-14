@@ -79,8 +79,8 @@
       
       <!-- 选择了站点后显示完整功能 -->
       <view wx:elif="{{selectedStation && selectedStation.id}}">
-        <!-- 列车方向选择 -->
-        <view class="direction-selection" wx:if="{{selectedLine && currentLineDirections}}">
+        <!-- 列车方向选择 - 仅在有换乘线路时显示 -->
+        <view class="direction-selection" wx:if="{{selectedLine && currentLineDirections && selectedStation.transfers && selectedStation.transfers.length > 0}}">
           <text class="selection-title">选择列车方向：</text>
           <view class="direction-buttons">
             <button 
