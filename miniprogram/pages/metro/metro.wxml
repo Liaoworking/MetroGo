@@ -6,8 +6,8 @@
       class="metro-map-movable"
       direction="all"
       scale
-      scale-min="0.5"
-      scale-max="3"
+      scale-min="0.8"
+      scale-max="4"
       scale-value="1"
       out-of-bounds
       inertia
@@ -16,7 +16,7 @@
       <image 
         class="metro-map"
         src="../../assets/images/metro-map-new.jpg"
-        mode="aspectFit"
+        mode="scaleToFill"
         bindload="onMapImageLoad"
         binderror="onMapImageError"
         show-menu-by-longpress="{{false}}"

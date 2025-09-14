@@ -654,8 +654,8 @@ Component({
     // 时间戳用于避免缓存
     timestamp: Date.now(),
     // 地图缩放相关配置
-    scaleMin: 0.5,      // 最小缩放比例
-    scaleMax: 3.0,      // 最大缩放比例
+    scaleMin: 0.8,      // 最小缩放比例
+    scaleMax: 4.0,      // 最大缩放比例
     scaleValue: 1.0,    // 当前缩放比例
     damping: 20,        // 阻尼系数
     friction: 2         // 摩擦系数
