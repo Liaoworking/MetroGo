@@ -73,12 +73,12 @@
     <!-- 右侧：换乘信息 -->
     <view class="transfer-info">
       <!-- 没有选择站点时显示提示 -->
-      <view class="no-station-tip" wx:if="!selectedStation">
+      <view class="no-station-tip" wx:if="{{!selectedStation || !selectedStation.id}}">
         <text>请先选择要换乘的站点哦~</text>
       </view>
       
       <!-- 选择了站点后显示完整功能 -->
-      <view wx:else>
+      <view wx:elif="{{selectedStation && selectedStation.id}}">
         <!-- 列车方向选择 -->
         <view class="direction-selection" wx:if="selectedLine && currentLineDirections">
           <text class="selection-title">选择列车方向：</text>
@@ -103,7 +103,7 @@
         </view>
         
         <!-- 换乘相关内容 -->
-        <view wx:if="selectedStation.transfers.length > 0">
+        <view wx:if="{{selectedStation.transfers && selectedStation.transfers.length > 0}}">
           <!-- 换乘线路选择 -->
           <view class="transfer-line-selection">
             <text class="selection-title">换乘至：</text>

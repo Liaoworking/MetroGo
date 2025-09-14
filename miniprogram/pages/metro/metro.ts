@@ -753,6 +753,7 @@ Component({
     // 选择站点
     onSelectStation(e: any) {
       const station = e.currentTarget.dataset.station;
+      console.log('选择的站点:', station);
       
       // 如果已经选择了线路，需要重新设置方向信息
       let directions = null;
@@ -765,6 +766,8 @@ Component({
         currentLineDirections: directions, // 确保方向信息可用
         showTransferInfo: false,
         currentTransferInfo: null
+      }, () => {
+        console.log('设置后的 selectedStation:', this.data.selectedStation);
       });
     },
     
