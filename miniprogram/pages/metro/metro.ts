@@ -643,9 +643,11 @@ Component({
         description: '下车后从车头方向楼梯上行，步行约3分钟到达8号线站台'
       }
     } as TransferInfoMap,
-    // 当前选中的线路和站点
+    // 当前选中的线路、站点和方向
     selectedLine: '',
     selectedStation: null as Station | null,
+    selectedDirection: '', // 当前选中的方向
+    currentLineDirections: null as { direction1: string; direction2: string } | null, // 当前线路的两个方向
     // 显示的换乘信息
     showTransferInfo: false,
     currentTransferInfo: null as TransferInfo | null,
@@ -671,14 +673,58 @@ Component({
   },
 
   methods: {
+    // 动态获取线路的两个方向（起点站和终点站）
+    getLineDirections(lineId: string) {
+      const stationsByLine = this.data.stationsByLine as StationMap;
+      const stations = stationsByLine[lineId];
+      
+      if (!stations || stations.length === 0) {
+        return { direction1: '未知', direction2: '未知' };
+      }
+      
+      // 对于4号线和13号线等环线，第一站和最后一站相同，需要特殊处理
+      if (lineId === '4' || lineId === '13') {
+        // 环线情况：取中间某个站点作为另一个方向
+        const middleIndex = Math.floor(stations.length / 2);
+        return {
+          direction1: stations[0].name,
+          direction2: stations[middleIndex].name
+        };
+      }
+      
+      return {
+        direction1: stations[0].name, // 第一个站点
+        direction2: stations[stations.length - 1].name // 最后一个站点
+      };
+    },
+
     // 选择线路
     onSelectLine(e: any) {
       const lineId = e.currentTarget.dataset.id;
+      const directions = this.getLineDirections(lineId);
+      
       this.setData({
         selectedLine: lineId,
         selectedStation: null,
+        selectedDirection: '', // 重置方向选择
+        currentLineDirections: directions, // 设置当前线路的方向信息
         showTransferInfo: false,
         currentTransferInfo: null
+      });
+    },
+
+    // 选择列车方向
+    onSelectDirection(e: any) {
+      const direction = e.currentTarget.dataset.direction;
+      this.setData({
+        selectedDirection: direction
+      });
+      
+      // 显示方向选择成功的提示
+      wx.showToast({
+        title: `已选择往${direction}方向`,
+        icon: 'success',
+        duration: 1500
       });
     },
 

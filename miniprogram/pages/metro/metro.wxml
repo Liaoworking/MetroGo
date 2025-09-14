@@ -72,8 +72,30 @@
     
     <!-- 右侧：换乘信息 -->
     <view class="transfer-info">
-          <!-- 换乘线路选择 -->
-          <view class="transfer-line-selection" wx:if="selectedStation && selectedStation.transfers.length > 0">
+      <!-- 列车方向选择 -->
+      <view class="direction-selection" wx:if="selectedLine && currentLineDirections">
+        <text class="selection-title">选择列车方向：</text>
+        <view class="direction-buttons">
+          <button 
+            class="direction-btn {{selectedDirection === currentLineDirections.direction1 ? 'selected' : ''}}"
+            size="mini"
+            data-direction="{{currentLineDirections.direction1}}"
+            bindtap="onSelectDirection"
+          >
+            往{{currentLineDirections.direction1}}方向
+          </button>
+          <button 
+            class="direction-btn {{selectedDirection === currentLineDirections.direction2 ? 'selected' : ''}}"
+            size="mini"
+            data-direction="{{currentLineDirections.direction2}}"
+            bindtap="onSelectDirection"
+          >
+            往{{currentLineDirections.direction2}}方向
+          </button>
+        </view>
+      </view>
+      <!-- 换乘线路选择 -->
+      <view class="transfer-line-selection" wx:if="selectedStation && selectedStation.transfers.length > 0">
         <text class="selection-title">选择换乘线路：</text>
         <view class="transfer-line-buttons">
           <button 
