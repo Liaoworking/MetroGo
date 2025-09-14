@@ -134,7 +134,8 @@
         </view>
       </view>
       <view class="info-content-empty" wx:else>
-        <text wx:if="selectedStation">请选择要换乘的线路</text>
+        <text wx:if="!selectedStation && selectedLine">请先选择要换乘的站点哦~</text>
+        <text wx:elif="selectedStation">请选择要换乘的线路</text>
         <text wx:else>请先选择线路和站点</text>
       </view>
     </view>
