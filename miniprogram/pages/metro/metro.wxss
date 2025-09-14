@@ -150,7 +150,7 @@ page {
 /* 线路列表项 */
 .line-item {
   padding: 20rpx;
-  border-left: 6rpx solid transparent;
+  border-left: 10rpx solid transparent;
   display: flex;
   align-items: center;
   background-color: #ffffff;
@@ -162,9 +162,10 @@ page {
   content: '';
   position: absolute;
   left: 0;
-  top: 15rpx;
+  top: 10rpx;
   bottom: 15rpx;
-  width: 6rpx;
+  width: 10rpx;
+  border-radius: 5rpx;
   background-color: var(--line-color, transparent);
 }
 
