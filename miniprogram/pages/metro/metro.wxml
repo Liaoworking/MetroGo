@@ -82,7 +82,7 @@
             data-direction="{{currentLineDirections.direction1}}"
             bindtap="onSelectDirection"
           >
-            往{{currentLineDirections.direction1}}方向
+            {{currentLineDirections.direction1}}
           </button>
           <button 
             class="direction-btn {{selectedDirection === currentLineDirections.direction2 ? 'selected' : ''}}"
@@ -90,7 +90,7 @@
             data-direction="{{currentLineDirections.direction2}}"
             bindtap="onSelectDirection"
           >
-            往{{currentLineDirections.direction2}}方向
+            {{currentLineDirections.direction2}}
           </button>
         </view>
       </view>
