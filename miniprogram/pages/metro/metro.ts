@@ -722,10 +722,19 @@ Component({
       
       // 显示方向选择成功的提示
       wx.showToast({
-        title: `已选择往${direction}方向`,
+        title: `已选择${direction}方向`,
         icon: 'success',
         duration: 1500
       });
+      
+      // 检查当前站点是否只有一条换乘线路，如果是则自动选择当前线路
+      if (this.data.selectedStation && this.data.selectedStation.transfers.length === 1) {
+        const transferLineId = this.data.selectedStation.transfers[0];
+        // 自动触发换乘信息获取
+        setTimeout(() => {
+          this.getTransferInfo(transferLineId);
+        }, 300); // 延迟300ms，让用户看到方向选择的反馈
+      }
     },
 
     // 选择站点
@@ -900,8 +909,13 @@ Component({
       });
     },
 
-    // 获取换乘信息
-    getTransferInfo(toLineId: string) {
+    // 获取换乘信息 - 支持事件调用和直接调用
+    getTransferInfo(toLineIdOrEvent: string | any) {
+      // 处理参数：如果是事件对象，从dataset中获取；否则直接使用
+      const toLineId = typeof toLineIdOrEvent === 'string' 
+        ? toLineIdOrEvent 
+        : toLineIdOrEvent.currentTarget.dataset.lineId;
+        
       if (!this.data.selectedLine || !this.data.selectedStation) {
         wx.showToast({
           title: '请先选择出发线路和站点',

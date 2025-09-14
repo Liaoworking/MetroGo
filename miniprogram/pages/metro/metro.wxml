@@ -96,7 +96,7 @@
       </view>
       <!-- 换乘线路选择 -->
       <view class="transfer-line-selection" wx:if="selectedStation && selectedStation.transfers.length > 0">
-        <text class="selection-title">选择换乘线路：</text>
+        <text class="selection-title">换乘至：</text>
         <view class="transfer-line-buttons">
           <button 
             wx:for="{{selectedStation.transfers}}" 
