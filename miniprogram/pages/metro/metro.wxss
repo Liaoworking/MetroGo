@@ -56,12 +56,14 @@ page {
 .metro-map-movable {
   width: 150%;
   height: 150%;
+  /* movable-view会自己处理动画，不需要CSS transition */
 }
 
 .metro-map {
   width: 100%;
   height: 100%;
   display: block;
+  /* 图片本身不需要transition，由父容器movable-view控制 */
 }
 
 .map-placeholder {

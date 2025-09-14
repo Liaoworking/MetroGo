@@ -11,7 +11,8 @@
       scale-value="{{scaleValue}}"
       out-of-bounds
       inertia
-      animation="{{true}}"
+      animation="{{useAnimation}}"
+      duration="{{animationDuration}}"
       bindscale="onScale"
     >
       <image 

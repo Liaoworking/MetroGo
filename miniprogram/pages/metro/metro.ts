@@ -664,7 +664,10 @@ Component({
     doubleTapInterval: 300, // 双击间隔时间（毫秒）
     isZoomedIn: false,  // 是否处于放大状态
     normalScale: 1.0,   // 正常缩放比例
-    zoomedScale: 2.5    // 放大缩放比例
+    zoomedScale: 2.5,   // 放大缩放比例
+    // 动画相关配置
+    useAnimation: true, // 是否使用动画
+    animationDuration: 250  // 动画持续时间（毫秒）
   },
 
   methods: {
@@ -734,7 +737,10 @@ Component({
         type: 'light'
       });
       
+      // 确保动画开启，并设置统一的缩放
       this.setData({
+        useAnimation: true,
+        animationDuration: 250,
         isZoomedIn: newIsZoomedIn,
         scaleValue: newScale
       });
@@ -746,7 +752,7 @@ Component({
         duration: 600
       });
 
-      console.log(`双击${newIsZoomedIn ? '放大' : '缩小'}，缩放比例: ${newScale}`);
+      console.log(`双击${newIsZoomedIn ? '放大' : '缩小'}，缩放比例: ${newScale}，动画时长: 250ms`);
     },
 
     // 处理缩放事件
@@ -783,6 +789,8 @@ Component({
     // 重置地图位置和缩放
     resetMapPosition() {
       this.setData({
+        useAnimation: true,
+        animationDuration: 250,
         scaleValue: this.data.normalScale,
         isZoomedIn: false
       });
@@ -839,14 +847,24 @@ Component({
     // 快速切换到放大状态 - 用于外部调用
     quickZoomIn() {
       if (!this.data.isZoomedIn) {
-        this.handleDoubleTap();
+        this.setData({
+          useAnimation: true,
+          animationDuration: 250,
+          isZoomedIn: true,
+          scaleValue: this.data.zoomedScale
+        });
       }
     },
 
     // 快速切换到正常状态 - 用于外部调用  
     quickZoomOut() {
       if (this.data.isZoomedIn) {
-        this.handleDoubleTap();
+        this.setData({
+          useAnimation: true,
+          animationDuration: 250,
+          isZoomedIn: false,
+          scaleValue: this.data.normalScale
+        });
       }
     },
 
