@@ -101,47 +101,57 @@
             </button>
           </view>
         </view>
-        <!-- 换乘线路选择 -->
-        <view class="transfer-line-selection" wx:if="selectedStation.transfers.length > 0">
-          <text class="selection-title">换乘至：</text>
-          <view class="transfer-line-buttons">
-            <button 
-              wx:for="{{selectedStation.transfers}}" 
-              wx:key="index"
-              class="transfer-line-btn"
-              size="mini"
-              data-line-id="{{item}}"
-              bindtap="getTransferInfo"
-            >
-              {{item}}号线
-            </button>
+        
+        <!-- 换乘相关内容 -->
+        <view wx:if="selectedStation.transfers.length > 0">
+          <!-- 换乘线路选择 -->
+          <view class="transfer-line-selection">
+            <text class="selection-title">换乘至：</text>
+            <view class="transfer-line-buttons">
+              <button 
+                wx:for="{{selectedStation.transfers}}" 
+                wx:key="index"
+                class="transfer-line-btn"
+                size="mini"
+                data-line-id="{{item}}"
+                bindtap="getTransferInfo"
+              >
+                {{item}}号线
+              </button>
+            </view>
+          </view>
+          <view>换乘信息</view>
+          <view class="info-content" wx:if="showTransferInfo && currentTransferInfo">
+            <view class="info-item">
+              <text class="info-label">出发线路：</text>
+              <text class="info-value">{{currentTransferInfo.fromLine}}</text>
+            </view>
+            <view class="info-item">
+              <text class="info-label">到达线路：</text>
+              <text class="info-value">{{currentTransferInfo.toLine}}</text>
+            </view>
+            <view class="info-item">
+              <text class="info-label">换乘站点：</text>
+              <text class="info-value">{{currentTransferInfo.fromStation}}</text>
+            </view>
+            <view class="info-item">
+              <text class="info-label">最佳车厢：</text>
+              <text class="info-value highlight">{{currentTransferInfo.bestCarriage}}</text>
+            </view>
+            <view class="info-item description">
+              <text class="info-label">换乘指引：</text>
+              <text class="info-value">{{currentTransferInfo.description}}</text>
+            </view>
+          </view>
+          <view class="info-content-empty" wx:else>
+            <text>请选择要换乘的线路</text>
           </view>
         </view>
-        <view >换乘信息</view>
-        <view class="info-content" wx:if="showTransferInfo && currentTransferInfo">
-          <view class="info-item">
-            <text class="info-label">出发线路：</text>
-            <text class="info-value">{{currentTransferInfo.fromLine}}</text>
-          </view>
-          <view class="info-item">
-            <text class="info-label">到达线路：</text>
-            <text class="info-value">{{currentTransferInfo.toLine}}</text>
-          </view>
-          <view class="info-item">
-            <text class="info-label">换乘站点：</text>
-            <text class="info-value">{{currentTransferInfo.fromStation}}</text>
-          </view>
-          <view class="info-item">
-            <text class="info-label">最佳车厢：</text>
-            <text class="info-value highlight">{{currentTransferInfo.bestCarriage}}</text>
-          </view>
-          <view class="info-item description">
-            <text class="info-label">换乘指引：</text>
-            <text class="info-value">{{currentTransferInfo.description}}</text>
-          </view>
-        </view>
-        <view class="info-content-empty" wx:else>
-          <text>请选择要换乘的线路</text>
+        
+        <!-- 没有换乘线路的站点提示 -->
+        <view class="no-transfer-tip" wx:else>
+          <text>{{selectedStation.name}} 是非换乘站点</text>
+          <text>该站点无法换乘其他线路</text>
         </view>
       </view>
     </view>

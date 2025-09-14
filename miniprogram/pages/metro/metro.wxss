@@ -260,6 +260,27 @@ page {
   font-size: 28rpx;
 }
 
+/* 没有换乘线路的站点提示 */
+.no-transfer-tip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+.no-transfer-tip text:first-child {
+  margin-bottom: 10rpx;
+  color: #666666;
+  font-weight: bold;
+}
+
+.no-transfer-tip text:last-child {
+  font-size: 24rpx;
+}
+
 .info-content-empty {
   flex: 1;
   display: flex;
