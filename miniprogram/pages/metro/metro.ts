@@ -373,7 +373,7 @@ Component({
       const key = `${fromStationId}-${toLineId}-0`;
       const reverseKey = `${fromStationId}-${toLineId}-1`;
       
-      console.log(key,reverseKey)
+      // console.log(key,reverseKey)
 
       // 在换乘信息中查找
       const transferInfoMap = this.data.transferInfo as TransferInfoMap;
