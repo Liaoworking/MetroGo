@@ -58,7 +58,7 @@ export const stationsByLine: StationMap = {
     { id: '1-28', name: '富锦路', transfers: [] }
   ],
   '2': [
-    { id: '2-1', name: '徐泾东', transfers: [] },
+    { id: '2-1', name: '国家会展中心', transfers: [] },
     { id: '2-2', name: '虹桥火车站', transfers: ['10', '17'] },
     { id: '2-3', name: '虹桥2号航站楼', transfers: ['10', '17'] },
     { id: '2-4', name: '淞虹路', transfers: [] },
@@ -72,7 +72,7 @@ export const stationsByLine: StationMap = {
     { id: '2-12', name: '人民广场', transfers: ['1', '8'] },
     { id: '2-13', name: '南京东路', transfers: ['10'] },
     { id: '2-14', name: '陆家嘴', transfers: [] },
-    { id: '2-15', name: '东昌路', transfers: [] },
+    { id: '2-15', name: '浦东南路', transfers: [] },
     { id: '2-16', name: '世纪大道', transfers: ['4', '6', '9'] },
     { id: '2-17', name: '上海科技馆', transfers: [] },
     { id: '2-18', name: '世纪公园', transfers: [] },
@@ -87,7 +87,7 @@ export const stationsByLine: StationMap = {
     { id: '2-27', name: '凌空路', transfers: [] },
     { id: '2-28', name: '远东大道', transfers: [] },
     { id: '2-29', name: '海天三路', transfers: [] },
-    { id: '2-30', name: '浦东国际机场', transfers: [] }
+    { id: '2-30', name: '浦东机场1号航站楼/2号航站楼', transfers: [] }
   ],
   // 3号线站点数据
   '3': [
@@ -139,7 +139,7 @@ export const stationsByLine: StationMap = {
     { id: '4-14', name: '杨树浦路', transfers: [] },
     { id: '4-15', name: '浦东大道', transfers: [] },
     { id: '4-16', name: '世纪大道', transfers: ['2', '6', '9'] },
-    { id: '4-17', name: '浦电路', transfers: [] },
+    { id: '4-17', name: '向城路', transfers: [] },
     { id: '4-18', name: '蓝村路', transfers: ['6'] },
     { id: '4-19', name: '塘桥', transfers: [] },
     { id: '4-20', name: '南浦大桥', transfers: [] },
@@ -206,7 +206,7 @@ export const stationsByLine: StationMap = {
   ],
   // 9号线站点数据
   '9': [
-    { id: '9-1', name: '松江南站', transfers: [] },
+    { id: '9-1', name: '上海松江站', transfers: [] },
     { id: '9-2', name: '醉白池', transfers: [] },
     { id: '9-3', name: '松江体育中心', transfers: [] },
     { id: '9-4', name: '松江新城', transfers: [] },
@@ -288,9 +288,9 @@ export const stationsByLine: StationMap = {
     { id: '6-13', name: '德平路', transfers: [] },
     { id: '6-14', name: '北洋泾路', transfers: [] },
     { id: '6-15', name: '民生路', transfers: [] },
-    { id: '6-16', name: '源深体育中心', transfers: [] },
+    { id: '6-16', name: '源深体育馆', transfers: [] },
     { id: '6-17', name: '世纪大道', transfers: ['2', '4', '9'] },
-    { id: '6-18', name: '浦电路', transfers: [] },
+    { id: '6-18', name: '向城路', transfers: [] },
     { id: '6-19', name: '蓝村路', transfers: ['4'] },
     { id: '6-20', name: '上海儿童医学中心', transfers: [] },
     { id: '6-21', name: '临沂新村', transfers: [] },
@@ -573,6 +573,6 @@ export const stationsByLine: StationMap = {
   // 磁悬浮站点数据
   '磁悬浮': [
     { id: 'cf-1', name: '龙阳路', transfers: ['2', '7', '16', '18'] },
-    { id: 'cf-2', name: '浦东国际机场', transfers: ['2'] }
+    { id: 'cf-2', name: '浦东机场1号航站楼/2号航站楼', transfers: ['2'] }
   ]
 };
