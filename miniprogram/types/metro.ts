@@ -14,11 +14,9 @@ export interface Station {
 }
 
 export interface TransferInfo {
-  fromLine: string;
-  toLine: string;
-  fromStation: string;
-  toStation: string;
   bestCarriage: string;
+  bestDoor: string;
+  doorNumber: string;
   description: string;
 }
 

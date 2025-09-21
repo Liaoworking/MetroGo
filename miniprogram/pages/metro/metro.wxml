@@ -127,7 +127,7 @@
           <view class="info-content" wx:if="{{showTransferInfo && currentTransferInfo}}">
             <view class="info-item">
               <text class="info-label">最佳车厢：</text>
-              <text class="info-value highlight">{{currentTransferInfo.bestCarriage}}</text>
+              <text class="info-value highlight">{{bestCarriageDoorText}}</text>
             </view>
             <!-- <view class="info-item description">
               <text class="info-label">换乘指引：</text>

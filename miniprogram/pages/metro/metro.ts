@@ -24,6 +24,8 @@ Component({
     // 显示的换乘信息
     showTransferInfo: false,
     currentTransferInfo: null as TransferInfo | null,
+    // 计算得出的最佳车厢门信息
+    bestCarriageDoorText: '',
     // 地铁图数据
     metroMapImage: '/assets/images/map.jpg',
     // 时间戳用于避免缓存
@@ -48,6 +50,14 @@ Component({
   },
 
   methods: {
+    // 计算最佳车厢门文本
+    calculateBestCarriageDoorText(transferInfo: TransferInfo | null): string {
+      if (!transferInfo || !transferInfo.bestCarriage || !transferInfo.bestDoor) {
+        return '';
+      }
+      return `${transferInfo.bestCarriage}车厢，${transferInfo.bestDoor}号车门`;
+    },
+
     // 动态获取线路的两个方向（起点站和终点站）
     getLineDirections(lineId: string) {
       const stationsByLine = this.data.stationsByLine as StationMap;
@@ -98,7 +108,8 @@ Component({
         selectedTransferLine: '', // 重置换乘线路选择
         currentLineDirections: directions, // 设置当前线路的方向信息
         showTransferInfo: false,
-        currentTransferInfo: null
+        currentTransferInfo: null,
+        bestCarriageDoorText: ''
       });
     },
 
@@ -142,7 +153,8 @@ Component({
         selectedTransferLine: '', // 重置换乘线路选择
         currentLineDirections: directions, // 确保方向信息可用
         showTransferInfo: false,
-        currentTransferInfo: null
+        currentTransferInfo: null,
+        bestCarriageDoorText: ''
       }, () => {
         console.log('设置后的 selectedStation:', this.data.selectedStation);
       });
@@ -358,9 +370,11 @@ Component({
 
       // 构建查询键
       const fromStationId = this.data.selectedStation.id;
-      const key = `${fromStationId}-${toLineId}`;
-      const reverseKey = `${fromStationId.split('-')[0]}-${fromStationId.split('-')[1]}-${toLineId}`;
+      const key = `${fromStationId}-${toLineId}-0`;
+      const reverseKey = `${fromStationId}-${toLineId}-1`;
       
+      console.log(key,reverseKey)
+
       // 在换乘信息中查找
       const transferInfoMap = this.data.transferInfo as TransferInfoMap;
       let transferInfo = transferInfoMap[key] || transferInfoMap[reverseKey];
@@ -369,23 +383,22 @@ Component({
         this.setData({
           selectedTransferLine: toLineId, // 设置选中的换乘线路
           currentTransferInfo: transferInfo,
+          bestCarriageDoorText: this.calculateBestCarriageDoorText(transferInfo),
           showTransferInfo: true
         });
       } else {
         // 如果没有预设的换乘信息，生成通用的提示信息
-        const fromLine = this.data.lines.find(line => line.id === this.data.selectedLine)?.name || '';
-        const toLine = this.data.lines.find(line => line.id === toLineId)?.name || '';
+        const emptyTransferInfo = {
+          bestCarriage: '',
+          bestDoor: '',
+          doorNumber: '',
+          description: ''
+        } as TransferInfo;
         
         this.setData({
           selectedTransferLine: toLineId, // 设置选中的换乘线路
-          currentTransferInfo: {
-            fromLine: fromLine,
-            toLine: toLine,
-            fromStation: this.data.selectedStation.name,
-            toStation: this.data.selectedStation.name,
-            bestCarriage: '请查看站内指引',
-            description: '请根据站内标识前往换乘通道，或咨询工作人员获取最佳换乘路线'
-          } as TransferInfo,
+          currentTransferInfo: emptyTransferInfo,
+          bestCarriageDoorText: this.calculateBestCarriageDoorText(emptyTransferInfo),
           showTransferInfo: true
         });
       }
